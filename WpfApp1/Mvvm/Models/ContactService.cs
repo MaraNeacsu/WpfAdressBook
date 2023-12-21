@@ -6,26 +6,26 @@ namespace WpfApp1.Mvvm.Models
 {
     public class ContactService : IContactService
     {
-        private List<Contact> contacts;
+        private List<ContactModel> contacts;
 
         public ContactService()
         {
             // Initialize contacts list
-            contacts = new List<Contact>();
+            contacts = new List<ContactModel>();
         }
 
-        public IEnumerable<Contact> GetContacts()
+        public IEnumerable<ContactModel> GetContacts()
         {
             return contacts;
         }
 
-        public void AddContact(Contact contact)
+        public void AddContact(ContactModel contact)
         {
             // Implement logic to check for duplicates, validations, etc., if needed
             contacts.Add(contact);
         }
 
-        public void DeleteContact(Contact contact)
+        public void DeleteContact(ContactModel contact)
         {
             contacts.Remove(contact);
         }
@@ -41,7 +41,7 @@ namespace WpfApp1.Mvvm.Models
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                contacts = JsonConvert.DeserializeObject<List<Contact>>(json);
+                contacts = JsonConvert.DeserializeObject<List<ContactModel>>(json);
             }
         }
     }

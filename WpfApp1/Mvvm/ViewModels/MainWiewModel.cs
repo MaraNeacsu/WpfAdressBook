@@ -3,28 +3,58 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using WpfApp1.Mvvm.Models;
 
-namespace WpfApp1.Mvvm.ViewModels;
+// ViewModels/MainViewModel.cs
 
-public partial class MainWiewModel : ObservableObject
+
+
+namespace WpfApp1.Mvvm.ViewModels
 {
-
-
-
-
-    [ObservableProperty]
-    private Contact contactForm = new();
-
-    [ObservableProperty]
-    private ObservableCollection<Contact> contactList = [];
-    [RelayCommand]
-    public void AddContactToList()
+    public class MainViewModel
     {
-        if (!string.IsNullOrWhiteSpace(ContactForm.FirstName) && string.IsNullOrWhiteSpace(ContactForm.LastName)) 
+        public ObservableCollection<ContactModel> Contacts { get; set; }
+
+        public ContactModel CurrentContact { get; set; }
+
+        public ICommand AddContactCommand { get; set; }
+        public ICommand DeleteContactCommand { get; set; }
+
+        public MainViewModel()
         {
-            ContactList.Add(ContactForm);
-            ContactForm = new();
+            Contacts = new ObservableCollection<ContactModel>();
+            CurrentContact = new ContactModel();
+
+            AddContactCommand = new RelayCommand(AddContact, CanAddContact);
+            DeleteContactCommand = new RelayCommand(DeleteContact, CanDeleteContact);
+        }
+
+        private void AddContact()
+        {
+            Contacts.Add(CurrentContact);
+            CurrentContact = new ContactModel();
+        }
+
+        private bool CanAddContact()
+        {
+            // You can implement validation logic here
+            return !string.IsNullOrWhiteSpace(CurrentContact.FirstName)
+                && !string.IsNullOrWhiteSpace(CurrentContact.LastName);
+        }
+
+        private void DeleteContact()
+        {
+            if (Contacts.Contains(CurrentContact))
+            {
+                Contacts.Remove(CurrentContact);
+                CurrentContact = new ContactModel();
+            }
+        }
+
+        private bool CanDeleteContact()
+        {
+            return Contacts.Contains(CurrentContact);
         }
     }
 }

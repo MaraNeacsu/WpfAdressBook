@@ -2,7 +2,7 @@
 
 namespace WpfApp1.Mvvm.Models
 {
-    public class Contact
+    public class ContactModel
 
     {
         public Guid Id { get; set; }=  Guid.NewGuid();
@@ -10,7 +10,7 @@ namespace WpfApp1.Mvvm.Models
 
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string Phone { get; set; } = null!;
+        public string PhoneNumber { get; set; } = null!;
         public string Address { get; set; } = null!;
     }
 }
