@@ -14,7 +14,7 @@ namespace WpfApp1
             builder = Host.CreateDefaultBuilder()
                 .ConfigureServices(services =>
                 {
-                    services.AddSingleton<MainWiewModel>(); // Fix typo here
+                    services.AddSingleton<MainWiewModel>(); 
                     services.AddSingleton<MainWindow>();
                 })
                 .Build();
@@ -24,7 +24,7 @@ namespace WpfApp1
         {
             builder!.Start();
 
-            var mainWindow = builder.Services.GetRequiredService<MainWindow>(); // Fix typo here
+            var mainWindow = builder.Services.GetRequiredService<MainWindow>(); 
             mainWindow.Show();
         }
     }
